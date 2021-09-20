@@ -39,14 +39,18 @@
     icon="fas fa-lg fa-comment-dots" title="{{$post->title}}">
     <div class="row">
         <p class="col-10">{{$post->post}}</p>
+
         @if( $post->user_id == Auth::id())
-        <div class="col-2">
-                        <div class="col-1 float-right px-5">{!! Form::open(['route' => ['admin.posts.destroy',$post->id],'method' =>'DELETE']) !!}
-            <button class="btn btn-lg text-danger fas fa-lg fa-trash-alt">
-                {!! Form::close() !!}</div>
-            <div class="col-1 float-right px-5">{!! Form::open(['route' => ['admin.posts.edit',$post->id],'method' =>'GET']) !!}
-            <button class="btn btn-lg text-primary fas fa-lg fa-comment-dots ">
+        <div class="col-2 form-group row">
+                        
+            <div class="col-xs-6 mr-1">{!! Form::open(['route' => ['admin.posts.edit',$post->id],'method' =>'GET']) !!}
+                <x-adminlte-button class="btn" type="submit" label="Edit Post" theme="outline-primary" icon="fas fa-lg fa-comment-dots"/>
+
                  {!! Form::close() !!}</div>  
+                 <div class="col-xs-6">
+                            <x-adminlte-button class="btn" type="submit" label="Delete Post" theme="outline-danger" icon="fas fa-lg fa-trash" id="alertbox" data-toggle="modal" data-target="#exampleModal"/>
+
+                </div>
         </div>
         @endif
 
@@ -55,4 +59,27 @@
 
 </x-adminlte-callout>
  @endforeach 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this post?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        {!! Form::open(['route' => ['admin.posts.destroy',$post->id],'method' =>'DELETE']) !!}
+        <button type="submit" class="btn btn-danger">Delete Post</button>
+        {!! Form::close() !!}
+      </div>
+    </div>
+  </div>
+</div>
+
 @stop

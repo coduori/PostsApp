@@ -36,8 +36,8 @@ class PostController extends Controller
         if(!$post){
             Session::flash('post_create_fail', "Unable to create the post on the database!");
         }
-        Session::flash('post_create_success', "Your post has been created!");
-        return self::index();       
+        $session = Session::flash('post_create_success', "Your post has been created!");
+        return redirect()->to('home')->with('session',$session);       
     }
 
     /**
@@ -68,8 +68,8 @@ class PostController extends Controller
         if(!$response){
             Session::flash('post_update_fail', "Unable to update the post!");
         }
-        Session::flash('post_update_success', "Post updated successfully!");
-        return self::index();
+        $session = Session::flash('post_update_success', "Post updated successfully!");
+        return redirect()->to('home')->with('session',$session);   
     }
 
     /**
@@ -80,7 +80,11 @@ class PostController extends Controller
      */
     public function destroy($id){
         $response = Post::where(["id"=>$id])->delete();
-        Session::flash('delete_post_success', "Post deleted!");
-        return self::index();
+        if(!$response){
+            Session::flash('post_delete_fail', "Unable to update the post!");
+        }
+        $session = Session::flash('delete_post_success', "Post deleted!");
+        return redirect()->to('home')->with('session',$session);   
+
     }
 }

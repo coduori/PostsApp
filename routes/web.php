@@ -22,8 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/admin/posts/post/{user}','App\Http\Controllers\Admin\PostController@store')->name('admin.posts.post');
-Route::get('/posts/update/{id}','App\Http\Controllers\Admin\PostController@show')->name('admin.posts.edit');
-Route::put('/posts/update/{id}','App\Http\Controllers\Admin\PostController@update')->name('admin.post.update');
-Route::delete('/posts/destroy/{id}','App\Http\Controllers\Admin\PostController@destroy')->name('admin.posts.destroy');
-
+// Use auth middleware to protect all routes from unauthenticated users
+Route::post('/admin/posts/post/{user}',['middleware' => 'auth', 'uses' => 'App\Http\Controllers\Admin\PostController@store'])->name('admin.posts.post');
+Route::get('/posts/update/{id}',['middleware' => 'auth', 'uses' => 'App\Http\Controllers\Admin\PostController@show'])->name('admin.posts.edit');
+Route::put('/posts/update/{id}',['middleware' => 'auth', 'uses' => 'App\Http\Controllers\Admin\PostController@update'])->name('admin.post.update');
+Route::delete('/posts/destroy/{id}',['middleware' => 'auth', 'uses' => 'App\Http\Controllers\Admin\PostController@destroy'])->name('admin.posts.destroy');
