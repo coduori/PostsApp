@@ -28,7 +28,7 @@ Open your .env file and change the following database credentials to match your 
 #### DB_PORT
 if hosted locally, the HOST and PORT can remain as they are
 #### DB_DATABASE
-This is the database name where the data of the system will be hosted
+This is the database name where the database of the system will be hosted
 #### DB_USERNAME
 This is the username used to gain access to the database created for this system
 #### DB_PASSWORD
@@ -45,4 +45,6 @@ Go to localhost:8000
 
 #### Repo pass
 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
+
+End
 
