@@ -16,8 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('id', 'DESC')->get();;
-        return view('home')->with("posts",$posts);
+        $posts = Post::orderBy('id', 'DESC')->get();
+        $posts = json($posts);
+        return response($posts);
     }
 
     /**

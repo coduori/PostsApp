@@ -12,11 +12,11 @@ use App\Models\Post;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    $posts = Post::orderBy('id', 'DESC')->get();
+    $posts = Post::all();
     return view('welcome')->with("posts",$posts);
 });
+
 
 Auth::routes();
 
