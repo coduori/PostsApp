@@ -44,7 +44,7 @@ Run php artisan serve
 Go to localhost:8000
 
 #### Repo pass
-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
+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
 
 End
 

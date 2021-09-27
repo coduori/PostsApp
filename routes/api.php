@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware(['cors'])->group(function () {
+Route::post('/post/create/{user}','App\Http\Controllers\Admin\PostController@store')->name('admin.posts.post');
+Route::get('/posts/{id}','App\Http\Controllers\Admin\PostController@show')->name('admin.posts.edit');
+Route::get('/posts','App\Http\Controllers\Admin\PostController@index')->name('admin.posts.index');
+Route::put('/posts/{id}','App\Http\Controllers\Admin\PostController@update')->name('admin.post.update');
+Route::delete('/posts/destroy/{id}','App\Http\Controllers\Admin\PostController@destroy')->name('admin.posts.destroy');
+});

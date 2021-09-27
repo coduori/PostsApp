@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Session;
+use Response;
 
 class PostController extends Controller
 {
@@ -17,8 +17,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id', 'DESC')->get();
-        $posts = json($posts);
-        return response($posts);
+        ## return all posts in DB with status code 200
+        return  Response::json($posts, 200); 
     }
 
     /**
@@ -31,14 +31,13 @@ class PostController extends Controller
     {
         $post =  Post::create([
             'user_id'    =>  $id,
-            'title'      =>  $request->post_title,
-            'post'       =>  $request->post_message,
+            'title'      =>  $request->title,
+            'post'       =>  $request->post,
         ]);
         if(!$post){
-            Session::flash('post_create_fail', "Unable to create the post on the database!");
+            return Response::json(["response"=>"resource could not be created"], 409);  
         }
-        $session = Session::flash('post_create_success', "Your post has been created!");
-        return redirect()->to('home')->with('session',$session);       
+        return Response::json($post, 200);      
     }
 
     /**
@@ -50,7 +49,7 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::where(["id"=>$id])->get();
-        return view('Admin.editPost')->with('post',$post[0]);
+        return Response::json($post, 200);
     }
 
     /**
@@ -64,13 +63,12 @@ class PostController extends Controller
     {
         $response = Post::where('id',$id)->update([
             "title" => $request->title,
-            "post" => $request->message,
+            "post" => $request->post,
         ]);
         if(!$response){
-            Session::flash('post_update_fail', "Unable to update the post!");
+            return Response::json(["response"=>"could not update resource"], 409);
         }
-        $session = Session::flash('post_update_success', "Post updated successfully!");
-        return redirect()->to('home')->with('session',$session);   
+        return Response::json(Post::find($id), 200);
     }
 
     /**
@@ -82,10 +80,9 @@ class PostController extends Controller
     public function destroy($id){
         $response = Post::where(["id"=>$id])->delete();
         if(!$response){
-            Session::flash('post_delete_fail', "Unable to update the post!");
+            return Response::json(["response"=>"resource not found"], 404);
         }
-        $session = Session::flash('delete_post_success', "Post deleted!");
-        return redirect()->to('home')->with('session',$session);   
+        return Response::json(["response"=>"resource deleted successfully"], 200);
 
     }
 }
