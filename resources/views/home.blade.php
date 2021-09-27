@@ -74,9 +74,11 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          @if($post->id)
         {!! Form::open(['route' => ['admin.posts.destroy',$post->id],'method' =>'DELETE']) !!}
         <button type="submit" class="btn btn-danger">Delete Post</button>
         {!! Form::close() !!}
+        @endif
       </div>
     </div>
   </div>
