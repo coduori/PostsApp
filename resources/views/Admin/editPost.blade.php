@@ -18,7 +18,7 @@
                           </div>
                       </div>
                       <div class="card-body">
-                          @if($post->id)
+                          @if(isset($post->id))
                             {!! Form::model($post, ['route' => ['admin.post.update', $post->id],'method' =>'PUT']) !!}
                                 @csrf
                                 <div class="form-group">
