@@ -18,6 +18,7 @@
                           </div>
                       </div>
                       <div class="card-body">
+                          @if($post->id)
                             {!! Form::model($post, ['route' => ['admin.post.update', $post->id],'method' =>'PUT']) !!}
                                 @csrf
                                 <div class="form-group">
@@ -32,6 +33,7 @@
 
                                 {!! Form::submit('Edit Post',['class' => 'btn btn-md btn-primary float-right'])!!}
                             {!! Form::close() !!}
+                            @endif
                       </div>
                       <!-- /.card-body -->
 
