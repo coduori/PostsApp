@@ -15,10 +15,10 @@
     </div>
     <div class="card-body">
 <div class="row">
-    <x-adminlte-input name="post_title" label="Post Title" placeholder="Post Title" label-class="text-lightblue"
+    <x-adminlte-input name="title" label="Post Title" placeholder="Post Title" label-class="text-lightblue"
         fgroup-class="col-md-8" disable-feedback/>
 </div>
-    <x-adminlte-textarea name="post_message" label="Post" rows=5 igroup-size="sm"
+    <x-adminlte-textarea name="post" label="Post" rows=5 igroup-size="sm"
     label-class="text-primary" placeholder="Write your thoughts here..." disable-feedback>
     <x-slot name="prependSlot">
         <div class="input-group-text">

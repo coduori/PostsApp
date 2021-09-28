@@ -28,7 +28,7 @@
 
                                 <div class="form-group">
                                     {!! Form::label('name', 'Post Message'); !!}
-                                    {!! Form::textArea('message',$post->post,['required'=>'','class' => 'form-control']); !!}
+                                    {!! Form::textArea('post',$post->post,['required'=>'','class' => 'form-control']); !!}
                                 </div> 
 
                                 {!! Form::submit('Edit Post',['class' => 'btn btn-md btn-primary float-right'])!!}
